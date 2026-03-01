@@ -110,3 +110,11 @@ It does not attempt to prove universality or physical interpretations; the focus
 License
 
 MIT License.
+
+## Experimental Setup
+
+- Lattice size: N = 200
+- Time steps: T = 200
+- Runs per rule: 20
+- Boundary conditions: periodic
+- Seed: 12345
