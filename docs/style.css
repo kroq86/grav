@@ -1,0 +1,279 @@
+:root {
+  --bg: #f5f1e8;
+  --bg-soft: #efe7d8;
+  --paper: #fffdfa;
+  --ink: #1e2620;
+  --muted: #5d665f;
+  --line: #d5cab8;
+  --accent: #1f5c45;
+  --accent-soft: #dce9e1;
+  --shadow: rgba(27, 31, 29, 0.08);
+  --max: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(31, 92, 69, 0.14), transparent 28%),
+    linear-gradient(180deg, #f8f4ec 0%, var(--bg) 100%);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code,
+pre {
+  font-family: "SFMono-Regular", "Menlo", "Monaco", "Courier New", monospace;
+}
+
+.page-shell {
+  width: min(calc(100% - 2rem), var(--max));
+  margin: 0 auto;
+  padding-bottom: 4rem;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 0 1rem;
+}
+
+.brand {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-nav a {
+  font-size: 0.96rem;
+}
+
+.hero,
+.card,
+.article,
+.list-card {
+  background: rgba(255, 253, 250, 0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.hero {
+  padding: 3rem;
+  border-radius: 28px;
+  margin: 1rem 0 2rem;
+}
+
+.hero h1 {
+  margin: 0 0 1rem;
+  max-width: 12ch;
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 0.95;
+}
+
+.lead {
+  font-size: 1.16rem;
+  color: var(--muted);
+  max-width: 52rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.76rem;
+  color: var(--accent);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.button.primary {
+  background: var(--accent);
+  color: #f7f3eb;
+}
+
+.grid-section,
+.list-grid,
+.reading-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-section {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.list-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reading-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card,
+.list-card,
+.reading-item {
+  border-radius: 22px;
+  padding: 1.35rem 1.4rem;
+}
+
+.card h2,
+.card h3,
+.list-card h3,
+.article h2 {
+  margin-top: 0;
+}
+
+.content-section {
+  margin-top: 2.5rem;
+}
+
+.section-heading {
+  margin-bottom: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.reading-item {
+  display: block;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 30px var(--shadow);
+}
+
+.reading-item:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.reading-kicker {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.74rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 16px;
+  background: #f3eee4;
+  border: 1px solid var(--line);
+}
+
+.article-page {
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.article {
+  width: min(100%, 820px);
+  padding: 2.5rem;
+  border-radius: 28px;
+}
+
+.article ul {
+  padding-left: 1.2rem;
+}
+
+.article-callout {
+  margin-top: 2rem;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+}
+
+.citation .card {
+  background: #f8f4ec;
+}
+
+.site-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  color: var(--muted);
+}
+
+@media (max-width: 920px) {
+  .grid-section,
+  .list-grid,
+  .reading-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 2rem;
+  }
+
+  .hero h1 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .page-shell {
+    width: min(calc(100% - 1rem), var(--max));
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .article {
+    padding: 1.5rem;
+  }
+}

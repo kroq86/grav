@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grav Overview</title>
+  <meta name="description" content="Project overview for Grav: why all 256 ECA rules are measured and compared.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">Grav</a>
+      <nav class="site-nav">
+        <a href="blog.html">Overview</a>
+        <a href="preprint.html">Preprint</a>
+        <a href="rule-69.html">Rule 69</a>
+        <a href="https://github.com/kroq86/grav">GitHub</a>
+      </nav>
+    </header>
+
+    <main class="article-page">
+      <article class="article">
+        <p class="eyebrow">Overview</p>
+        <h1>What happens if you measure all 256 elementary cellular automata?</h1>
+        <p class="lead">
+          The project started from a simple decision: do not cherry-pick a few famous rules, but
+          run the entire 256-rule ECA family through one shared quantitative pipeline.
+        </p>
+
+        <h2>Why this is worth doing</h2>
+        <p>
+          Elementary cellular automata are minimal systems: a one-dimensional binary line, local
+          updates from nearest neighbors, and only 256 possible rules. Even under that extreme
+          simplicity they produce periodic regimes, chaotic behavior, and mobile localized patterns.
+        </p>
+        <p>
+          The point of Grav is not to collect pretty pictures. It is to build a reproducible map of
+          rule space that makes different regimes numerically comparable.
+        </p>
+
+        <h2>What is measured</h2>
+        <ul>
+          <li>Mean binary entropy across trajectories.</li>
+          <li>Normalized sensitivity to one-bit perturbations.</li>
+          <li>A Lyapunov-like estimate of perturbation growth.</li>
+          <li>A coarse indicator for glider-like structure.</li>
+        </ul>
+
+        <h2>What this reveals</h2>
+        <p>
+          Once the 256 rules are embedded into a feature space, the repository can study the shape
+          of that space directly. Some rules concentrate near low-entropy, low-sensitivity regimes;
+          others collect in the high-entropy, highly sensitive region associated with chaotic
+          dynamics; a third zone contains more structured but still active behavior.
+        </p>
+        <p>
+          This does not yet amount to a formal theorem of phase structure, but it does replace
+          qualitative hand-waving with a measurable geometric picture.
+        </p>
+
+        <h2>What comes next</h2>
+        <p>
+          The broader aim is to connect metric structure with actual localized dynamics: domains,
+          interfaces, defects, and particles. That is why the repository also contains rule-specific
+          search tools, especially around Rule 69.
+        </p>
+
+        <div class="article-callout">
+          <strong>Recommended next page:</strong>
+          <a href="preprint.html">open the preprint-style summary</a>.
+        </div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

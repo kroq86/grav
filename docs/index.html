@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grav</title>
+  <meta name="description" content="Quantitative exploration of elementary cellular automata: metrics, clustering, and localized structures.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">Grav</a>
+      <nav class="site-nav">
+        <a href="blog.html">Overview</a>
+        <a href="preprint.html">Preprint</a>
+        <a href="rule-69.html">Rule 69</a>
+        <a href="https://github.com/kroq86/grav">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Quantitative ECA Research</p>
+        <h1>Minimal cellular automata, measured as a reproducible rule space.</h1>
+        <p class="lead">
+          Grav is a compact research repository focused on all 256 elementary cellular automata:
+          reproducible metrics, clustering in feature space, and targeted search for localized
+          structures such as translating fronts.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="blog.html">Read Project Overview</a>
+          <a class="button" href="preprint.html">Open Preprint</a>
+        </div>
+      </section>
+
+      <section class="grid-section">
+        <article class="card">
+          <h2>What the repository does</h2>
+          <p>
+            The current pipeline evaluates every ECA rule with entropy, perturbation sensitivity,
+            a Lyapunov-like growth heuristic, and a coarse glider indicator, then studies the
+            geometry of rule space with clustering and stability checks.
+          </p>
+        </article>
+        <article class="card">
+          <h2>What makes it useful</h2>
+          <p>
+            The project treats rule numbers as points in a metric space rather than as isolated
+            pictures. That shifts the emphasis from visual folklore to reproducible, comparable
+            observables.
+          </p>
+        </article>
+        <article class="card">
+          <h2>Secondary research line</h2>
+          <p>
+            Separate scripts explore domains, interfaces, and translating defects, with the Rule 69
+            line currently being the strongest localized-structure case study in the repository.
+          </p>
+        </article>
+      </section>
+
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="eyebrow">Key Results</p>
+          <h2>Current research claims</h2>
+        </div>
+        <div class="list-grid">
+          <article class="list-card">
+            <h3>Full 256-rule sweep</h3>
+            <p>All elementary cellular automata are analyzed under one shared numerical protocol.</p>
+          </article>
+          <article class="list-card">
+            <h3>Metric rule-space map</h3>
+            <p>Rules are compared through entropy, sensitivity, and related observables.</p>
+          </article>
+          <article class="list-card">
+            <h3>Cluster stability checks</h3>
+            <p>Silhouette-based model choice is paired with ARI stability and permutation testing.</p>
+          </article>
+          <article class="list-card">
+            <h3>Localized structures</h3>
+            <p>Rule-specific search scripts investigate domains, defects, interfaces, and fronts.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="eyebrow">Reading</p>
+          <h2>Texts collected into one site</h2>
+        </div>
+        <div class="reading-list">
+          <a class="reading-item" href="blog.html">
+            <span class="reading-kicker">Overview</span>
+            <strong>Why sweep all 256 ECA rules at all?</strong>
+            <span>A short, readable project introduction built from the repository notes.</span>
+          </a>
+          <a class="reading-item" href="preprint.html">
+            <span class="reading-kicker">Paper Draft</span>
+            <strong>Metric structure of elementary cellular automata rule space</strong>
+            <span>The repository's current preprint text, organized as a compact web article.</span>
+          </a>
+          <a class="reading-item" href="rule-69.html">
+            <span class="reading-kicker">Case Study</span>
+            <strong>Ballistic interfaces in Rule 69</strong>
+            <span>A focused note on translating fronts and domain interfaces.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="eyebrow">Reproducibility</p>
+          <h2>Run the core pipeline</h2>
+        </div>
+        <div class="card">
+          <pre><code>python3 -m pip install -r requirements.txt
+make metrics
+make cluster
+make test</code></pre>
+          <p class="muted">
+            The canonical package entrypoints are <code>python3 -m grav.metrics</code> and
+            <code>python3 -m grav.cluster</code>. Research scripts for fronts and particle search
+            remain available in <code>grav/research/</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-heading">
+          <p class="eyebrow">Project Shape</p>
+          <h2>Repository map</h2>
+        </div>
+        <div class="grid-section">
+          <article class="card">
+            <h3>Core package</h3>
+            <p><code>grav/eca.py</code>, <code>grav/nonlinear_core.py</code>, <code>grav/cluster_core.py</code>.</p>
+          </article>
+          <article class="card">
+            <h3>CLI entrypoints</h3>
+            <p><code>grav/metrics.py</code>, <code>grav/cluster.py</code>, <code>grav/fronts.py</code>.</p>
+          </article>
+          <article class="card">
+            <h3>Research layer</h3>
+            <p><code>grav/research/</code> for bounded searches and Rule 69 exploratory tools.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section citation">
+        <div class="section-heading">
+          <p class="eyebrow">Citation</p>
+          <h2>Software citation</h2>
+        </div>
+        <div class="card">
+          <p><strong>Ostapenko, Kirill.</strong> <em>Quantitative Exploration of Elementary Cellular Automata</em>. Version 1.0, released March 1, 2026.</p>
+          <p class="muted">Repository: <a href="https://github.com/kroq86/grav">github.com/kroq86/grav</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Grav is a compact research site for a computational project on elementary cellular automata.</p>
+    </footer>
+  </div>
+</body>
+</html>

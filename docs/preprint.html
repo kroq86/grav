@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grav Preprint</title>
+  <meta name="description" content="Preprint-style summary of the metric structure of elementary cellular automata rule space.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">Grav</a>
+      <nav class="site-nav">
+        <a href="blog.html">Overview</a>
+        <a href="preprint.html">Preprint</a>
+        <a href="rule-69.html">Rule 69</a>
+        <a href="https://github.com/kroq86/grav">GitHub</a>
+      </nav>
+    </header>
+
+    <main class="article-page">
+      <article class="article">
+        <p class="eyebrow">Preprint</p>
+        <h1>Metric structure of elementary cellular automata rule space</h1>
+        <p class="lead">
+          This page condenses the current repository preprint into a web-readable form. The focus is
+          a reproducible metric treatment of all 256 ECA rules.
+        </p>
+
+        <h2>Abstract</h2>
+        <p>
+          Grav studies the full ECA family through entropy, perturbation sensitivity, and a
+          Lyapunov-like observable. Rules are then clustered in feature space with KMeans, the
+          number of clusters is selected by silhouette score, and stability is checked with adjusted
+          Rand index and a permutation test.
+        </p>
+        <p>
+          The current result is a visibly structured partition in the two-dimensional projection
+          <code>(H, S)</code>, but the chosen null model does not yet support a strong statistical
+          claim that the geometry is deeper than the marginal feature distributions.
+        </p>
+
+        <h2>Setup</h2>
+        <p>
+          Each rule evolves on a periodic ring of size <code>N</code>. For each rule, multiple
+          random initial states are simulated, and the resulting trajectories are summarized by
+          reproducible numerical observables.
+        </p>
+
+        <h2>Main observables</h2>
+        <ul>
+          <li><strong>Entropy:</strong> binary Shannon entropy averaged over time and runs.</li>
+          <li><strong>Sensitivity:</strong> mean normalized Hamming distance between perturbed trajectories.</li>
+          <li><strong>Lyapunov-like growth:</strong> logarithmic growth estimate for perturbation size.</li>
+          <li><strong>Glider heuristic:</strong> a coarse marker for localized translating behavior.</li>
+        </ul>
+
+        <h2>Clustering result</h2>
+        <p>
+          In the repository's current workflow, three clusters emerge as the strongest silhouette
+          solution in the standard <code>(entropy_mean, sens_mean)</code> projection. Across
+          initialization seeds, the partition is algorithmically stable.
+        </p>
+
+        <h2>Interpretation limit</h2>
+        <p>
+          Stability alone is not enough. The permutation test keeps the marginals of the features
+          but destroys their joint structure, and under that null model the present feature set does
+          not yet justify a hard claim of statistically significant phase structure.
+        </p>
+
+        <h2>Why the project still matters</h2>
+        <p>
+          Even with that limitation, the repository already provides a useful foundation: a
+          reproducible baseline for comparing rules, refining observables, testing symmetries, and
+          eventually tying metric organization to actual structural phenomena such as interfaces and
+          particles.
+        </p>
+
+        <div class="article-callout">
+          <strong>Companion page:</strong>
+          <a href="rule-69.html">Rule 69 ballistic interface note</a>.
+        </div>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

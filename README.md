@@ -73,8 +73,14 @@ make reproduce
 - `grav/fronts.py` — пакетная точка входа для поиска translating fronts.
 - `grav/research/` — одноразовые исследовательские скрипты, вынесенные из корня.
 - `tests/` — минимальные тесты корректности.
+- `docs/` — статический GitHub Pages сайт с обзором проекта, preprint-страницей и заметкой по Rule 69.
 
 Совместимые обёртки в корне сохранены для старого CLI (`python3 nonlinear.py`, `python3 find_translating_fronts.py` и т.д.), но рекомендуемый запуск теперь идёт через `python -m grav...`.
+
+## GitHub Pages
+
+Сайт репозитория хранится в `docs/` и деплоится через GitHub Actions workflow `.github/workflows/pages.yml`.
+Для публикации в настройках репозитория нужно выбрать GitHub Pages source = `GitHub Actions`.
 
 ## Артефакты
 
