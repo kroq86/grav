@@ -1,201 +1,176 @@
-# Quantitative Exploration of Elementary Cellular Automata
+# Метрическая структура пространства правил элементарных клеточных автоматов
 
-Kirill Ostapenko  
-2026  
+## Аннотация
 
----
+В работе проводится количественный анализ всех 256 элементарных клеточных автоматов (ECA) на основе набора численных метрик динамики. Исследуется геометрическая структура пространства правил в координатах (энтропия, чувствительность к возмущению, Lyapunov-подобная оценка). Выполняется кластеризация правил и проверяется статистическая значимость наблюдаемой структуры с использованием пермутационного теста.
 
-## Abstract
-
-We perform a systematic computational analysis of all 256 elementary cellular automata (ECA) using quantitative dynamical metrics. For each rule, we compute time-averaged Shannon entropy, normalized perturbation sensitivity, and a Lyapunov-like growth rate. Statistical summaries are obtained from multiple independent realizations with fixed seeds to ensure reproducibility.  
-
-The results provide a fully enumerated metric-based classification of the ECA rule space and reveal quantitative separation between low-entropy, periodic, and high-sensitivity regimes.
+Полученные результаты демонстрируют устойчивое алгоритмическое разделение правил на группы, однако статистическая значимость структуры в текущем двумерном пространстве признаков не подтверждается.
 
 ---
 
-## 1. Introduction
+## 1. Введение
 
-Elementary cellular automata (ECA), introduced by Stephen Wolfram, consist of one-dimensional binary-state systems with nearest-neighbor interactions and synchronous updates. Despite their minimal definition, they exhibit a wide range of dynamical behaviors including fixed points, periodic structures, chaotic regimes, and complex localized structures.
+Элементарные клеточные автоматы (ECA) представляют собой одномерные дискретные динамические системы с бинарными состояниями и локальным правилом радиуса 1. Несмотря на простоту определения, пространство из 256 правил демонстрирует широкий спектр динамических режимов — от стационарных до хаотических.
 
-While qualitative classifications exist, a systematic quantitative survey over the entire 256-rule space provides additional insight into dynamical regimes.
-
-This work performs a full computational enumeration of all ECA rules and evaluates each using reproducible statistical metrics.
+Цель настоящей работы — построить метрическое описание пространства правил без апелляции к визуальной классификации и исследовать существование устойчивой геометрической структуры.
 
 ---
 
-## 2. Model Definition
+## 2. Математическая постановка
 
-An ECA consists of:
+Пусть:
 
-- A 1D lattice of size \( N \)
-- Binary states \( s_i \in \{0,1\} \)
-- Periodic boundary conditions
-- Update rule determined by a Wolfram rule number \( r \in [0,255] \)
+- решётка размера N
+- периодические граничные условия
+- время дискретно: t = 0, 1, ..., T
+- правило r ∈ {0, …, 255}
 
-The update is:
+Эволюция определяется локальной функцией:
 
-\[
-s_i(t+1) = f(s_{i-1}(t), s_i(t), s_{i+1}(t))
-\]
+x_i(t+1) = f_r(x_{i-1}(t), x_i(t), x_{i+1}(t))
 
-where \( f \) is defined by the binary representation of the rule number.
+Для каждого правила проводится усреднение по нескольким случайным начальным условиям.
 
 ---
 
-## 3. Experimental Setup
+## 3. Метрики динамики
 
-For each rule:
+### 3.1 Средняя энтропия (H)
 
-- Lattice size: \( N = 200 \)
-- Time steps: \( T = 200 \)
-- Runs per rule: 20
-- Boundary conditions: periodic
-- Fixed deterministic seeds
+Для каждого шага вычисляется бинарная энтропия:
 
-All 256 rules are enumerated exhaustively.
+H = -p log2 p - (1 - p) log2(1 - p)
 
----
+где p — доля единиц в конфигурации.
 
-## 4. Metrics
-
-### 4.1 Shannon Entropy
-
-For a configuration at time \( t \):
-
-\[
-H_t = -p \log_2 p - (1-p)\log_2(1-p)
-\]
-
-where \( p \) is the fraction of active cells.
-
-The reported entropy is the time-averaged value across runs.
+Затем выполняется усреднение по времени и по прогонам.
 
 ---
 
-### 4.2 Normalized Sensitivity
+### 3.2 Чувствительность к возмущению (S)
 
-Two trajectories differing by a single bit in the initial state are evolved.
+Для оценки чувствительности:
 
-Let \( d_t \) be the Hamming distance at time \( t \).
+1. Берутся две конфигурации, отличающиеся одним битом.
+2. Обе эволюционируют параллельно.
+3. Измеряется нормированное расстояние Хэмминга.
 
-The normalized sensitivity is:
-
-\[
-S = \frac{1}{N} \langle d_t \rangle
-\]
-
-averaged over time and runs.
+S характеризует способность системы усиливать локальные возмущения.
 
 ---
 
-### 4.3 Lyapunov-like Growth Rate
+### 3.3 Lyapunov-подобная величина
 
-We define:
+Вычисляется:
 
-\[
-\lambda = \frac{1}{T} \log \frac{d(T)}{d(0)}
-\]
+λ = (1/T) * log(d(T) / d(0))
 
-If perturbations decay completely (\( d(T)=0 \)), the value is excluded from statistical averaging.
+где d(t) — расстояние между возмущённой и невозмущённой траекториями.
 
----
-
-### 4.4 Glider Heuristic
-
-A shift-periodicity test is applied to single-site initial conditions.  
-This heuristic detects translationally propagating structures but is not a formal particle detector.
+Метрика служит численной оценкой экспоненциального роста различий.
 
 ---
 
-## 5. Results
+### 3.4 Эвристика локальных структур
 
-### 5.1 Entropy Distribution
-
-Entropy values span the full range from near-zero fixed-point rules to high-entropy chaotic rules.
-
-Low-entropy rules correspond to fixed or periodic dynamics.  
-High-entropy rules tend to exhibit irregular behavior.
+Проводится тест на наличие сдвиговой периодичности при локальном начальном условии.  
+Метрика используется как индикатор возможного существования устойчивых движущихся структур.
 
 ---
 
-### 5.2 Sensitivity and Chaotic Regimes
+## 4. Пространство признаков
 
-Rules with high normalized sensitivity display persistent perturbation growth.
+Каждое правило отображается в точку пространства:
 
-Notably:
+(H_mean, S_mean, λ_mean)
 
-- Rule 30
-- Rule 45
-- Rule 86
-- Rule 122
-- Rule 126
-
-exhibit strong perturbation amplification.
+Основной анализ проводится в двумерной проекции (H, S).
 
 ---
 
-### 5.3 Entropy vs Sensitivity Plane
+## 5. Кластеризация
 
-Plotting entropy against sensitivity reveals distinct clusters:
+Применяется алгоритм KMeans.
 
-- Low entropy / low sensitivity (ordered rules)
-- High entropy / low sensitivity (structured complexity)
-- High entropy / high sensitivity (chaotic rules)
+### 5.1 Подбор числа кластеров
 
-This separation provides a quantitative regime classification.
+Количество кластеров k выбирается по коэффициенту силуэта.
 
----
+Наблюдается максимум при k = 3.
 
-### 5.4 Localized Structures
+### 5.2 Устойчивость
 
-The glider heuristic identifies rules with shift-periodic behavior, including:
+Оценка устойчивости проводится через Adjusted Rand Index (ARI) по различным инициализациям.
 
-- Rule 41
-- Rule 97
-- Rule 106
-- Rule 184
+Получено:
 
-These rules exhibit propagating localized patterns under specific initial conditions.
+ARI ≈ 1.0  
+что указывает на алгоритмическую устойчивость разбиения.
 
 ---
 
-## 6. Discussion
+## 6. Пермутационный тест
 
-The full enumeration confirms that:
+Для проверки статистической значимости выполняется перестановочный тест:
 
-1. Entropy alone does not determine sensitivity.
-2. High sensitivity is concentrated in a subset of rules.
-3. Localized propagating structures can coexist with moderate entropy.
+1. Перемешиваются координаты признаков независимо.
+2. Пересчитывается коэффициент силуэта.
+3. Оценивается эмпирическое p-значение.
 
-The metric-based classification aligns partially with classical qualitative classifications but provides quantitative separation.
+Получено:
 
----
+p ≈ 0.45
 
-## 7. Reproducibility
-
-All code and datasets are publicly available:
-
-https://github.com/kroq86/grav
-
-Results are deterministic given the fixed seed and parameters.
+Это означает, что наблюдаемая кластерная структура может возникать при случайном сочетании признаков с сохранением их маргинальных распределений.
 
 ---
 
-## 8. Conclusion
+## 7. Результаты
 
-We provide a complete quantitative survey of all elementary cellular automata using reproducible statistical metrics.
+В пространстве (H, S) наблюдается разделение на три группы:
 
-The work establishes:
+- Низкая энтропия / низкая чувствительность  
+- Высокая энтропия / высокая чувствительность  
+- Промежуточные режимы  
 
-- A dataset covering all 256 rules
-- Statistical characterization of dynamical regimes
-- A reproducible computational framework
-
-Future work may extend analysis to larger lattices, longer time horizons, and formal particle detection methods.
+Разбиение устойчиво к инициализации алгоритма, однако не демонстрирует статистической значимости относительно выбранной нулевой гипотезы.
 
 ---
 
-## References
+## 8. Обсуждение
 
-1. Wolfram, S. "Statistical Mechanics of Cellular Automata." Reviews of Modern Physics (1983).
-2. Wolfram, S. *A New Kind of Science* (2002).
+Полученные результаты показывают:
+
+- пространство правил обладает выраженной геометрической структурой
+- структура устойчива алгоритмически
+- однако её статистическая природа в текущем наборе признаков не подтверждена
+
+Это указывает на необходимость расширения пространства признаков или использования более строгих критериев значимости.
+
+---
+
+## 9. Ограничения
+
+- Анализ проводится в основном в двумерной проекции.
+- Используемые метрики являются численными эвристиками.
+- Пермутационный тест разрушает корреляционную структуру полностью.
+- Не учитываются симметрии правил.
+
+---
+
+## 10. Направления дальнейших исследований
+
+- Добавление временных корреляций и спектральных метрик.
+- Исследование инвариантности относительно симметрий.
+- Нелинейные методы кластеризации.
+- Топологический анализ пространства правил.
+- Расширение на двумерные клеточные автоматы.
+
+---
+
+## Заключение
+
+Построена воспроизводимая метрическая картина пространства правил ECA.  
+Обнаружено устойчивое алгоритмическое разбиение на кластеры, однако статистическая значимость структуры в текущем пространстве признаков не подтверждена.
+
+Работа задаёт основу для дальнейшего строгого анализа геометрии дискретных динамических систем.
