@@ -1,113 +1,162 @@
-# Quantitative Exploration of Elementary Cellular Automata
+# Grav — Количественный анализ элементарных клеточных автоматов (ECA)
 
-This repository contains a complete computational study of all 256 Elementary Cellular Automata (ECA) rules using quantitative dynamical metrics.
+## 1. Описание проекта
 
-The project performs a systematic classification based on:
+Данный проект реализует полный перебор всех 256 элементарных клеточных автоматов (ECA) с вычислением количественных метрик динамики и последующей кластеризацией правил в пространстве признаков.
 
-- Mean Shannon entropy
-- Normalized sensitivity to initial perturbations
-- Lyapunov-like growth rate
-- Heuristic detection of shift-periodic localized structures (glider-like behavior)
+Цель — исследовать, существует ли устойчивая геометрическая структура в пространстве правил без использования визуальной или эвристической классификации.
 
-The goal is to provide a reproducible, metric-based perspective on dynamical regimes in ECA.
+---
 
-## What This Project Does
+## 2. Математическая постановка
 
-For each of the 256 Wolfram rules:
+Элементарный клеточный автомат определяется:
 
-- Simulates evolution on a 1D periodic lattice
-- Runs multiple independent realizations
-- Computes statistical summaries:
-  - mean
-  - standard deviation
-  - 95% confidence interval
-- Saves all results to CSV
+- одномерной бинарной решёткой
+- локальным правилом радиуса 1
+- периодическими граничными условиями
 
-## Generated Outputs
+Всего существует 256 возможных правил.
 
-Running:
+---
 
-```bash
+## 3. Вычисляемые метрики
+
+### 3.1 Средняя энтропия (H)
+
+Бинарная энтропия конфигурации:
+
+H = -p log2 p - (1 - p) log2(1 - p)
+
+где p — доля единиц в состоянии системы.
+
+Интерпретация:
+
+- H ≈ 0 — фиксированная или периодическая динамика  
+- H ≈ 1 — хаотическая динамика  
+
+---
+
+### 3.2 Чувствительность к возмущению (S)
+
+Для оценки чувствительности:
+
+1. Берутся две конфигурации, отличающиеся одним битом.
+2. Эволюция запускается параллельно.
+3. Измеряется нормированное расстояние Хэмминга.
+
+S ∈ [0, 1]
+
+- S ≈ 0 — возмущение затухает  
+- S > 0 — возмущение распространяется  
+
+---
+
+### 3.3 Lyapunov-подобная оценка
+
+Вычисляется величина:
+
+λ = (1/T) * log(d(T) / d(0))
+
+где d(t) — расстояние между траекториями.
+
+Это численная эвристика экспоненциального роста возмущений.
+
+---
+
+### 3.4 Эвристика локальных структур
+
+Проверяется наличие сдвиговой периодичности от локального начального условия.
+
+Метрика служит индикатором возможного существования бегущих структур.
+
+---
+
+## 4. Параметры эксперимента
+
+По умолчанию:
+
+- N = 200 (размер решётки)
+- T = 200 (число шагов)
+- runs = 20 (число прогонов)
+- периодические граничные условия
+- фиксированный seed
+
+---
+
+## 5. Запуск
+
+### Установка зависимостей
+
+pip install -r requirements.txt
+
+---
+
+### Генерация метрик
+
 python3 nonlinear.py
-````
 
-Produces:
+Генерируются файлы:
 
-* `eca_metrics.csv` — full statistical dataset
-* `entropy_hist.png` — entropy distribution across rules
-* `entropy_vs_sensitivity.png` — entropy vs sensitivity scatter plot
-* `rules_panel.png` — 2×2 panel of selected space-time diagrams
+- eca_metrics.csv
+- entropy_hist.png
+- entropy_vs_sensitivity.png
+- rules_panel.png
 
-## Metrics
+---
 
-### Entropy
+### Кластеризация
 
-Average Shannon entropy of configurations over time:
+python3 cluster.py
 
-H = -p log2(p) - (1 - p) log2(1 - p)
+Генерируются файлы:
 
-where p is the fraction of active cells.
+- clusters_HS.png
+- eca_clusters.csv
+- permtest_silhouette.png
 
-### Sensitivity
+---
 
-Normalized mean Hamming distance between two trajectories differing by one bit.
+## 6. Кластерный анализ
 
-Values lie in [0, 1].
+Кластеризация проводится в пространстве (H, S) методом KMeans.
 
-### Lyapunov-like Exponent
+Подбор числа кластеров выполняется по коэффициенту силуэта.
 
-λ = (1 / T) * log(d(T) / d(0))
+Дополнительно рассчитываются:
 
-If perturbations fully decay, the value is treated as undefined and excluded from statistics (reported via lyap_bad_frac).
+- устойчивость кластеров (Adjusted Rand Index)
+- пермутационный тест значимости силуэта
 
-### Glider Heuristic
+---
 
-A simple shift-periodicity test from a single-site initial condition.
+## 7. Интерпретация результатов
 
-This is a coarse indicator and not a formal particle detector.
+В пространстве (H, S) наблюдается разделение правил на группы:
 
-## Reproducibility
+- низкая энтропия и низкая чувствительность
+- высокая энтропия и высокая чувствительность
+- промежуточные режимы
 
-All experiments use fixed random seeds per rule.
+Однако пермутационный тест показывает, что при сохранении маргинальных распределений признаков подобная структура может возникать случайно.
 
-Default parameters:
+Следовательно, текущий результат следует интерпретировать как геометрическую структуру данных, а не как строгую фазовую классификацию.
 
-* Lattice size: N = 200
-* Time steps: T = 200
-* Runs per rule: 20
-* Boundary conditions: periodic
-* Seed: 12345
+---
 
-These can be modified in nonlinear.py.
+## 8. Ограничения
 
-## Repository Structure
+- Используются ограниченные метрики.
+- Lyapunov-подобная оценка является эвристической.
+- Детектор структур не является строгим алгоритмом.
+- Пространство признаков двумерное.
 
-nonlinear.py                # Main analysis script
-eca_metrics.csv             # Output dataset
-entropy_hist.png            # Entropy distribution
-entropy_vs_sensitivity.png  # Scatter plot
-rules_panel.png             # Space-time diagrams
-README.md
-CITATION.cff
+---
 
-## Requirements
+## 9. Возможные направления развития
 
-* Python 3.10+
-* NumPy
-* Matplotlib
-
-Install with:
-
-```bash
-pip install numpy matplotlib
-```
-
-## Scientific Context
-
-This repository accompanies a quantitative study of ECA dynamical regimes and is intended for reproducible computational experimentation.
-
-It does not attempt to prove universality or physical interpretations; the focus is purely on dynamical classification via statistical metrics.
-
-## License
-
-MIT License.
+- Добавление спектральных и корреляционных метрик.
+- Введение временных корреляций.
+- Использование нелинейных методов кластеризации.
+- Анализ инвариантности относительно симметрий правил.
+- Расширение на двумерные клеточные автоматы.
