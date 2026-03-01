@@ -1,2 +1,15 @@
 __pycache__/
-*.pyc
+*.py[cod]
+*.so
+
+.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+results/
+fronts_out/
+
+*.png
+*.csv
