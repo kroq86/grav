@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "Quantitative Exploration of Elementary Cellular Automata"
+message: "If you use this code or dataset, please cite it as below."
+type: software
+authors:
+  - family-names: Ostapenko
+    given-names: Kirill
+repository-code: https://github.com/kroq86/grav
+version: 1.0
+date-released: 2026-03-01
+license: MIT
